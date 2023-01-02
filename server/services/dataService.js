@@ -41,6 +41,8 @@ const readDataFromUsersFile = () => {
   return users;
 };
 
+// Todo: Write your CRUD operations
+
 // Todo: Export the data services nethods / functions
 module.exports = {
 };
