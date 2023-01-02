@@ -9,6 +9,7 @@ Instagram Simplified | Programming 2 | Associate Degree in Computer Programming
     - controllers
       - followerController.js
       - postController.js
+      - timelineController.js
       - userController.js
   - rests
     - followers.rest
