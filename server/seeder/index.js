@@ -157,21 +157,26 @@ const createFollower = (userId, friendId) => {
   };
 };
 
-const createFollowers = async (users, amount = 2000) => {
+const createFollowers = async (users) => {
   const followers = [];
 
   let userId;
   let friendId;
   let filteredUsers;
+  let amount;
 
-  for (let i = 0; i < amount; i++) {
-    userId = users[Math.floor(Math.random() * users.length)].id;
+  for (let user of users) {
+    amount = Math.floor(Math.random() * (users.length - 1));
+    userId = user.id;
     filteredUsers = users.filter(user => user.id !== userId);
-    friendId = filteredUsers[Math.floor(Math.random() * filteredUsers.length)].id;
 
-    followers.push(createFollower(userId, friendId));
+    console.log(userId);
+
+    for (let i = 0; i < amount; i++) {
+      friendId = filteredUsers.splice(Math.floor(Math.random() * filteredUsers.length), 1)[0].id;
+      followers.push(createFollower(userId, friendId));
+    }
   }
-
   return Promise.resolve(followers);
 };
 
@@ -180,7 +185,7 @@ const seed = async () => {
   fs.writeFileSync(filePathUsers, JSON.stringify(users, null, 2));
   const posts = await createPosts(users, 1200);
   fs.writeFileSync(filePathPosts, JSON.stringify(posts, null, 2));
-  const followers = await createFollowers(users, 18000);
+  const followers = await createFollowers(users);
   fs.writeFileSync(filePathFollowers, JSON.stringify(followers, null, 2));
 };
 
